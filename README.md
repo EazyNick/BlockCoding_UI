@@ -17,7 +17,7 @@ What things you need to install the software and how to install them:
 
 git clone https://github.com/yourusername/qtpy-block-coding.git
 
-cd qtpy-block-coding
+cd BlockCoding_UI
 
 
 ### Installing
