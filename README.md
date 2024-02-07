@@ -57,7 +57,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 - `Feature` - Branches for working on and integrating new features
 
 ## Authors
-- **EazyNick**[EazyNick](https://github.com/EazyNick)
+- **EazyNick**([EazyNick](https://github.com/EazyNick))
 
 ## License
 This project is licensed under the MIT License
