@@ -15,15 +15,15 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 What things you need to install the software and how to install them:
 
-git clone https://github.com/EazyNick/BlockCoding_UI.git
+**git clone https://github.com/EazyNick/BlockCoding_UI.git**
 
-cd BlockCoding_UI
+**cd BlockCoding_UI**
 
 
 ### Installing
 A step by step series of examples that tell you how to get a development environment running:
 
-pip install -r requirements.txt
+**pip install -r requirements.txt**
 
 
 
@@ -39,7 +39,8 @@ Add additional notes about how to deploy this on a live system.
 - Python - Programming language
 
 ## Contributing
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+If you would like to contribute, please contact me.
+-**kkkygsos@naver.com**
 
 ## Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/yourusername/qtpy-block-coding/tags).
@@ -55,7 +56,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 - **Your Name** - *Initial work* - [YourUsername](https://github.com/YourUsername)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
 
 ## Acknowledgments
 - Hat tip to anyone whose code was used
