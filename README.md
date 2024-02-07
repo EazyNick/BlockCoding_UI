@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 What things you need to install the software and how to install them:
 
-git clone https://github.com/yourusername/qtpy-block-coding.git
+git clone https://github.com/EazyNick/BlockCoding_UI.git
 
 cd BlockCoding_UI
 
