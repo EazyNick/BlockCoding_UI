@@ -15,18 +15,18 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 What things you need to install the software and how to install them:
 
-    ```
+    
     git clone https://github.com/yourusername/qtpy-block-coding.git
     cd qtpy-block-coding
-    ```
+    
 
 
 ### Installing
 A step by step series of examples that tell you how to get a development environment running:
 
-    ```
+    
     pip install -r requirements.txt
-    ```
+    
 
 
 
