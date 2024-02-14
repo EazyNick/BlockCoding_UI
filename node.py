@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QGraphicsItemGroup, QGraphicsRectItem, QGraphicsTextItem, QGraphicsItem
-from PyQt5.QtGui import QBrush, QColor, QPen
+from PyQt5.QtWidgets import QGraphicsItemGroup, QGraphicsRectItem, QGraphicsTextItem, QGraphicsItem, QLineEdit, QGraphicsProxyWidget 
+from PyQt5.QtCore import Qt, QRegExp
+from PyQt5.QtGui import QBrush, QColor, QPen, QIntValidator, QRegExpValidator
 
 class Node(QGraphicsItemGroup):
     """
@@ -20,6 +21,15 @@ class Node(QGraphicsItemGroup):
         nodeColor = QColor('#7f0000')  # 어두운 빨강색
         borderColor = QColor('#2f2f2f')  # 경계선 색상
 
+        # QLineEdit 추가
+        if self.nodeType == "Click":
+            self.lineEdit = QLineEdit()
+            # 입력 길이 제한 (예시: 10자리까지)
+            self.lineEdit.setMaxLength(10)
+            proxyWidget = QGraphicsProxyWidget(self)  # QGraphicsScene에서 위젯 사용을 위한 프록시
+            proxyWidget.setWidget(self.lineEdit)
+            proxyWidget.setPos(5, 60)  # QLineEdit 위치 조정
+
         rect = QGraphicsRectItem(0, 0, 150, 50)  # 150x50 크기의 직사각형 아이템을 생성
         rect.setBrush(QBrush(nodeColor)) # 노드 블록 색상
         rect.setPen(QPen(borderColor)) # 노드 블록 경계선 색상
@@ -32,3 +42,7 @@ class Node(QGraphicsItemGroup):
         self.setFlag(QGraphicsItem.ItemIsMovable)
         self.addToGroup(rect)  # 직사각형 아이템을 이 그룹에 추가합니다.
         self.addToGroup(text)  # 텍스트 아이템을 이 그룹에 추가합니다.
+
+    def mousePressEvent(self, event):
+    # 이벤트를 상위 클래스에 전달하여 기본적인 이벤트 처리를 수행하게 합니다.
+        super().mousePressEvent(event)
