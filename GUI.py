@@ -18,6 +18,7 @@ class MainWindow(QMainWindow):
         self.initUI()
 
     def initUI(self):
+
         # 창을 띄울 위젯 생성
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -83,19 +84,12 @@ class MainWindow(QMainWindow):
         main_splitter.addWidget(self.view)
 
         # 씬에 포커스를 설정
-        self.scene.setFocus()
-
-    # def addNode(self, nodeType):
-    #     node_name = f'{nodeType} Node {len(self.nodes) + 1}'
-    #     node = Node(node_name, nodeType)
-    #     self.nodes.append(node)
-    #     self.scene.addItem(node)
-    #     self.rearrangeNodes()
+        #self.scene.setFocus()
 
     def AddClickNode(self):
         # 버튼 1 클릭 이벤트 핸들러
         node_name = f'Click Node {len(self.nodes) + 1}'
-        node = Node(node_name, "Click")
+        node = Node(self.scene, node_name, "Click", 100, 100, self.handleCoordinates)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -103,13 +97,22 @@ class MainWindow(QMainWindow):
 
         # 장면에 노드 추가하고 뷰포트 중앙에 배치
         self.scene.addItem(node)
+        # Node 인스턴스를 생성하고 콜백 함수를 전달합니다.
+        self.node = Node(self.scene, "Click Node 1", "Click", 100, 100, self.handleCoordinates)
         node.setPos(viewport_center.x() - node.boundingRect().width() / 2,
                     viewport_center.y() - node.boundingRect().height() / 2)
-        print("Button 1 clicked")
+        
+        # try:
+        #     self.node = Node(self.scene, "Click Node 1", "Click", 100, 100)
+        #     self.node.coordinatesEntered.connect(self.handleCoordinates)
+        # except Exception as e:
+        #     print(f"Error connecting signal: {e}")
+
+        # print("Button 1 clicked")
 
     def AddScrollNode(self):
         node_name = f'Scroll Node {len(self.nodes) + 1}'
-        node = Node(node_name, "Scroll")
+        node = Node(self.scene, node_name, "AddScrollNode", 100, 100, self.handleCoordinates)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -124,7 +127,7 @@ class MainWindow(QMainWindow):
     def AddCommandNode(self):
 
         node_name = f'Command Node {len(self.nodes) + 1}'
-        node = Node(node_name, "Command")
+        node = Node(self.scene, node_name, "AddCommandNode", 100, 100)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -150,12 +153,19 @@ class MainWindow(QMainWindow):
 
     def executeNodes(self):
         self.running = True
-        for node in sorted(self.nodes, key=lambda x: x.x()):
+        for node in sorted(self.nodes, key=lambda item: item.x):
             if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
                 break
             for i in range(1000):
+                print(f"Running nodes with coordinates: ({self.x}, {self.y})")
                 print(f'Executing {node.nodeType} node: {node.name}')
         self.running = False
+
+    def handleCoordinates(self, x, y):
+        # Node로부터 전달받은 x, y 좌표를 저장합니다.
+        self.x = x
+        self.y = y
+        print(f"Received coordinates: ({self.x}, {self.y})")
 
     def stopExecution(self):
         self.running = False  # 실행 중단
@@ -203,6 +213,19 @@ class MainWindow(QMainWindow):
                 print("불러오기 취소됨")  # 콘솔에 메시지 출력
         else:
             self.loadNodes()  # 노드가 없으므로 바로 불러오기
+
+    def handleCoordinates(self, x, y):
+        # 이 메서드는 Node로부터 x, y 좌표를 받습니다.
+        print(f"Received coordinates from Node: ({x}, {y})")
+        # 여기에서 x, y 좌표를 사용할 수 있습니다.
+
+    # def log_uncaught_exceptions(ex_cls, ex, tb):
+    #     text = '{}: {}:\n'.format(ex_cls.__name__, ex)
+    #     import traceback
+    #     text += ''.join(traceback.format_tb(tb))
+    #     print(text)
+
+    # sys.excepthook = log_uncaught_exceptions
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -35,7 +35,10 @@ class CustomGraphicsView(QGraphicsView):
         else:
             super().mouseReleaseEvent(event)
 
-    # def mousePressEvent(self, event):
-    #     if event.button() == Qt.LeftButton:
-    #         # 여기서 추가적인 로직이 있다면, 필요한 경우 부모의 mousePressEvent를 호출해야 함
-    #         super().mousePressEvent(event)
+    def keyPressEvent(self, event):
+        # 현재 포커스가 있는 아이템이 키 이벤트를 처리할 수 있도록 합니다.
+        if self.scene().focusItem():
+            self.scene().focusItem().keyPressEvent(event)
+        else:
+            super().keyPressEvent(event)
+
