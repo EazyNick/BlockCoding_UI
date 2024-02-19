@@ -102,14 +102,6 @@ class MainWindow(QMainWindow):
         node.setPos(viewport_center.x() - node.boundingRect().width() / 2,
                     viewport_center.y() - node.boundingRect().height() / 2)
         
-        # try:
-        #     self.node = Node(self.scene, "Click Node 1", "Click", 100, 100)
-        #     self.node.coordinatesEntered.connect(self.handleCoordinates)
-        # except Exception as e:
-        #     print(f"Error connecting signal: {e}")
-
-        # print("Button 1 clicked")
-
     def AddScrollNode(self):
         node_name = f'Scroll Node {len(self.nodes) + 1}'
         node = Node(self.scene, node_name, "AddScrollNode", 100, 100, self.handleCoordinates)
@@ -151,21 +143,21 @@ class MainWindow(QMainWindow):
             node.setPos(x_offset, 100)  # Y 좌표는 예시로 100으로 설정
             x_offset += 160  # 노드 간격 설정
 
-    def executeNodes(self):
-        self.running = True
-        for node in sorted(self.nodes, key=lambda item: item.x):
-            if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
-                break
-            for i in range(1000):
-                print(f"Running nodes with coordinates: ({self.x}, {self.y})")
-                print(f'Executing {node.nodeType} node: {node.name}')
-        self.running = False
-
     def handleCoordinates(self, x, y):
         # Node로부터 전달받은 x, y 좌표를 저장합니다.
         self.x = x
         self.y = y
         print(f"Received coordinates: ({self.x}, {self.y})")
+
+    def executeNodes(self):
+        self.running = True
+        for node in sorted(self.nodes, key=lambda item: item.x):
+            if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
+                break
+            for i in range(3):
+                print(f"Running nodes with coordinates: ({self.x}, {self.y})")
+                print(f'Executing {node.nodeType} node: {node.name}')
+        self.running = False
 
     def stopExecution(self):
         self.running = False  # 실행 중단
@@ -174,19 +166,23 @@ class MainWindow(QMainWindow):
     def saveNodes(self):
         nodes_data = []
         for node in self.nodes:
+            x = node.pos().x()
+            y = node.pos().y()
+            # QLineEdit의 텍스트도 저장합니다.
+            text = node.lineEdit.text() if hasattr(node, 'lineEdit') else ""
             node_info = {
                 'name': node.name,
                 'type': node.nodeType,
-                'position': {'x': node.x(), 'y': node.y()}
+                'position': {'x': x, 'y': y},
+                'text': text  # QLineEdit의 텍스트를 저장합니다.
             }
             nodes_data.append(node_info)
 
         with open('nodes_state.json', 'w') as file:
             json.dump(nodes_data, file)
 
-    def loadNodes(self):
 
-        # 기존에 노드들을 삭제
+    def loadNodes(self):
         self.scene.clear()
         self.nodes.clear()
 
@@ -194,12 +190,18 @@ class MainWindow(QMainWindow):
             with open('nodes_state.json', 'r') as file:
                 nodes_data = json.load(file)
                 for node_data in nodes_data:
-                    node = Node(node_data['name'], node_data['type'])
+                    node = Node(self.scene, node_data['name'], node_data['type'], 
+                                node_data['position']['x'], node_data['position']['y'])
                     self.nodes.append(node)
                     self.scene.addItem(node)
                     node.setPos(node_data['position']['x'], node_data['position']['y'])
+                    # 저장된 텍스트 값을 QLineEdit에 다시 설정합니다.
+                    if hasattr(node, 'lineEdit'):
+                        node.lineEdit.setText(node_data.get('text', ""))
         except FileNotFoundError:
             print("No saved state found.")
+
+
 
     def confirmLoadNodes(self):
         if self.nodes:  # 이미 노드가 하나 이상 있는 경우
@@ -214,10 +216,10 @@ class MainWindow(QMainWindow):
         else:
             self.loadNodes()  # 노드가 없으므로 바로 불러오기
 
-    def handleCoordinates(self, x, y):
-        # 이 메서드는 Node로부터 x, y 좌표를 받습니다.
-        print(f"Received coordinates from Node: ({x}, {y})")
-        # 여기에서 x, y 좌표를 사용할 수 있습니다.
+    # def handleCoordinates(self, x, y):
+    #     # 이 메서드는 Node로부터 x, y 좌표를 받습니다.
+    #     print(f"Received coordinates from Node: ({x}, {y})")
+    #     # 여기에서 x, y 좌표를 사용할 수 있습니다.
 
     # def log_uncaught_exceptions(ex_cls, ex, tb):
     #     text = '{}: {}:\n'.format(ex_cls.__name__, ex)
