@@ -8,6 +8,22 @@ from define import *
 from custom_graphics_view import CustomGraphicsView
 from node import Node
 
+class CustomScene(QGraphicsScene):
+    def __init__(self, parent=None):
+        super(CustomScene, self).__init__(parent)
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Delete:
+            selected_items = self.selectedItems()
+            if selected_items:
+                for item in selected_items:
+                    self.removeItem(item)
+                event.accept()
+            else:
+                event.ignore()
+        else:
+            super(CustomScene, self).keyPressEvent(event)
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()  
@@ -73,7 +89,8 @@ class MainWindow(QMainWindow):
         left_layout.addStretch()
 
         # 노드를 담을 그래픽스 뷰
-        self.scene = QGraphicsScene(self)
+        # CustomScene 인스턴스 생성
+        self.scene = CustomScene()
         self.view = CustomGraphicsView(self.scene)
         #self.setCentralWidget(self.view)
         # 배경 색상을 설정합니다. 예를 들어 어두운 회색 계열의 색상입니다.

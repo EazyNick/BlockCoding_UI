@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QGraphicsItemGroup, QGraphicsRectItem, QGraphicsTextItem, QGraphicsItem, 
-                             QLineEdit, QGraphicsProxyWidget, QApplication, QGraphicsSceneMouseEvent)
+                             QLineEdit, QGraphicsProxyWidget, QApplication, QGraphicsScene, QMessageBox)
 
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QPen
 
 class Node(QGraphicsItemGroup):
@@ -46,7 +46,7 @@ class Node(QGraphicsItemGroup):
             # QLineEdit의 returnPressed 시그널을 connect 합니다.
             self.lineEdit.returnPressed.connect(self.onReturnPressed)
 
-        self.addToGroup(self.proxyWidget)  # QLineEdit이 포함된 proxyWidget을 그룹에 추가합니다.
+            self.addToGroup(self.proxyWidget)  # QLineEdit이 포함된 proxyWidget을 그룹에 추가합니다.
 
         rect = QGraphicsRectItem(0, 0, nodeWidth, nodeHeight)  # 150x50 크기의 직사각형 아이템을 생성
         rect.setBrush(QBrush(nodeColor)) # 노드 블록 색상
@@ -55,6 +55,9 @@ class Node(QGraphicsItemGroup):
         text.setDefaultTextColor(QColor(255, 255, 255))  # 흰색으로 텍스트 색상 설정
         text.setPos(5, 5)  # 텍스트 아이템의 위치를 설정
         text.setZValue(1)  # 다른 아이템보다 더 높은 Z-Order 값을 설정
+
+        # 선택 가능하도록 설정
+        self.setFlag(QGraphicsRectItem.ItemIsSelectable)
 
         # 노드가 드래그 가능하도록 설정
         self.setFlag(QGraphicsItem.ItemIsMovable)
