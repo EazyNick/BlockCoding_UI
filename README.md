@@ -60,7 +60,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 - **EazyNick**([EazyNick](https://github.com/EazyNick))
 
 ## License
-This project is licensed under the MIT License
+None, Free to us
 
 ## Acknowledgments
 - Hat tip to anyone whose code was used
