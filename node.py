@@ -38,7 +38,7 @@ class Node(QGraphicsItemGroup):
         # QLineEdit 추가
         if self.nodeType == "Click":
             self.lineEdit = QLineEdit()
-            self.lineEdit.setPlaceholderText("Enter coordinates (x, y)")
+            self.lineEdit.setPlaceholderText("Enter coordinates (x, y, delay)")
             self.proxyWidget = QGraphicsProxyWidget(self)
             self.proxyWidget.setWidget(self.lineEdit)
             self.proxyWidget.setPos(0, nodeHeight)
@@ -91,9 +91,9 @@ class Node(QGraphicsItemGroup):
     def onReturnPressed(self):
         text = self.lineEdit.text()
         try:
-            x, y = map(int, text.split(','))
+            x, y, delay = map(int, text.split(','))
             if self.callback:  # 콜백이 설정되어 있으면 호출합니다.
-                self.callback(x, y)
+                self.callback(x, y, delay)
                 print("Set CallBack Def")
                 
         except ValueError as e:

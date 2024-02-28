@@ -1,11 +1,12 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QPushButton, QGraphicsScene, QApplication, QVBoxLayout, QSplitter, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QVBoxLayout, QSplitter, QMessageBox
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtCore import Qt
 import json
-import pyautogui
+import os
 
-from Execute_Def.pyautogui_Click import Click
+from SaveAction.SaveJson import save_json
+from Execute_Def.Click import Click
 from CustomScene import CustomScene
 from define import *
 from custom_graphics_view import CustomGraphicsView
@@ -87,9 +88,6 @@ class MainWindow(QMainWindow):
         self.view.setFixedSize(800, 600)
         main_splitter.addWidget(self.view)
 
-        # 씬에 포커스를 설정
-        #self.scene.setFocus()
-
     def AddClickNode(self):
         # 버튼 1 클릭 이벤트 핸들러
         node_name = f'Click Node {len(self.nodes) + 1}'
@@ -146,16 +144,18 @@ class MainWindow(QMainWindow):
             node.setPos(x_offset, 100)  # Y 좌표는 예시로 100으로 설정
             x_offset += 160  # 노드 간격 설정
 
-    def handleCoordinates(self, x, y):
+    def handleCoordinates(self, x, y, delay):
         # Node로부터 전달받은 x, y 좌표를 저장합니다.
         self.x = x
         self.y = y
-        print(f"Received coordinates: ({self.x}, {self.y})")
+        self.delay = delay
+        print(f"Received coordinates: ({self.x}, {self.y}, delay: {delay})")
 
     def executeNodes(self):
         self.running = True
         x = self.x
         y = self.y
+        delay = self.delay
 
         # 가장 좌측에 있는 것부터 실행
         for node in sorted(self.nodes, key=lambda item: item.x):
@@ -164,9 +164,9 @@ class MainWindow(QMainWindow):
                 break
             else:
                 if node.nodeType == "Click":
-                    self.handleCoordinates(x, y)
+                    self.handleCoordinates(x, y, delay)
                     Click(x, y)
-                    print(f"Running nodes with coordinates: ({x}, {y})")
+                    print(f"Running nodes with coordinates: ({x}, {y}, delay: {delay})")
                     print(f'Executing {node.nodeType} node: {node.name}')
 
                 if node.nodeType == "Scroll":
@@ -198,16 +198,16 @@ class MainWindow(QMainWindow):
             }
             nodes_data.append(node_info)
 
-        with open('nodes_state.json', 'w') as file:
-            json.dump(nodes_data, file)
-
+        save_json(nodes_data)
 
     def loadNodes(self):
         self.scene.clear()
         self.nodes.clear()
 
+        filepath = os.path.join('Data', 'nodes_state.json')
+
         try:
-            with open('nodes_state.json', 'r') as file:
+            with open(filepath, 'r') as file:
                 nodes_data = json.load(file)
                 for node_data in nodes_data:
                     node = Node(self.scene, node_data['name'], node_data['type'], 
@@ -215,9 +215,11 @@ class MainWindow(QMainWindow):
                     self.nodes.append(node)
                     self.scene.addItem(node)
                     node.setPos(node_data['position']['x'], node_data['position']['y'])
+
                     # 저장된 텍스트 값을 QLineEdit에 다시 설정합니다.
                     if hasattr(node, 'lineEdit'):
                         node.lineEdit.setText(node_data.get('text', ""))
+
         except FileNotFoundError:
             print("No saved state found.")
 
