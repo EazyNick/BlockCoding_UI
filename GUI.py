@@ -3,26 +3,13 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QPushButton, QGra
 from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtCore import Qt
 import json
+import pyautogui
 
+from Execute_Def.pyautogui_Click import Click
+from CustomScene import CustomScene
 from define import *
 from custom_graphics_view import CustomGraphicsView
 from node import Node
-
-class CustomScene(QGraphicsScene):
-    def __init__(self, parent=None):
-        super(CustomScene, self).__init__(parent)
-
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Delete:
-            selected_items = self.selectedItems()
-            if selected_items:
-                for item in selected_items:
-                    self.removeItem(item)
-                event.accept()
-            else:
-                event.ignore()
-        else:
-            super(CustomScene, self).keyPressEvent(event)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -115,13 +102,12 @@ class MainWindow(QMainWindow):
         # 장면에 노드 추가하고 뷰포트 중앙에 배치
         self.scene.addItem(node)
         # Node 인스턴스를 생성하고 콜백 함수를 전달합니다.
-        self.node = Node(self.scene, "Click Node 1", "Click", 100, 100, self.handleCoordinates)
         node.setPos(viewport_center.x() - node.boundingRect().width() / 2,
                     viewport_center.y() - node.boundingRect().height() / 2)
         
     def AddScrollNode(self):
         node_name = f'Scroll Node {len(self.nodes) + 1}'
-        node = Node(self.scene, node_name, "AddScrollNode", 100, 100, self.handleCoordinates)
+        node = Node(self.scene, node_name, "Scroll", 100, 100, self.handleCoordinates)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -136,7 +122,7 @@ class MainWindow(QMainWindow):
     def AddCommandNode(self):
 
         node_name = f'Command Node {len(self.nodes) + 1}'
-        node = Node(self.scene, node_name, "AddCommandNode", 100, 100)
+        node = Node(self.scene, node_name, "Command", 100, 100)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -168,12 +154,29 @@ class MainWindow(QMainWindow):
 
     def executeNodes(self):
         self.running = True
+        x = self.x
+        y = self.y
+
+        # 가장 좌측에 있는 것부터 실행
         for node in sorted(self.nodes, key=lambda item: item.x):
+            print(node)
             if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
                 break
-            for i in range(3):
-                print(f"Running nodes with coordinates: ({self.x}, {self.y})")
-                print(f'Executing {node.nodeType} node: {node.name}')
+            else:
+                if node.nodeType == "Click":
+                    self.handleCoordinates(x, y)
+                    Click(x, y)
+                    print(f"Running nodes with coordinates: ({x}, {y})")
+                    print(f'Executing {node.nodeType} node: {node.name}')
+
+                if node.nodeType == "Scroll":
+                    print(f"Scroll Test")
+                    pass
+
+                if node.nodeType == "Command":
+                    print(f"Commnad Test")
+                    pass
+                
         self.running = False
 
     def stopExecution(self):
@@ -218,8 +221,6 @@ class MainWindow(QMainWindow):
         except FileNotFoundError:
             print("No saved state found.")
 
-
-
     def confirmLoadNodes(self):
         if self.nodes:  # 이미 노드가 하나 이상 있는 경우
             reply = QMessageBox.question(self, '노드 불러오기',
@@ -232,19 +233,6 @@ class MainWindow(QMainWindow):
                 print("불러오기 취소됨")  # 콘솔에 메시지 출력
         else:
             self.loadNodes()  # 노드가 없으므로 바로 불러오기
-
-    # def handleCoordinates(self, x, y):
-    #     # 이 메서드는 Node로부터 x, y 좌표를 받습니다.
-    #     print(f"Received coordinates from Node: ({x}, {y})")
-    #     # 여기에서 x, y 좌표를 사용할 수 있습니다.
-
-    # def log_uncaught_exceptions(ex_cls, ex, tb):
-    #     text = '{}: {}:\n'.format(ex_cls.__name__, ex)
-    #     import traceback
-    #     text += ''.join(traceback.format_tb(tb))
-    #     print(text)
-
-    # sys.excepthook = log_uncaught_exceptions
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

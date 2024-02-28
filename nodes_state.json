@@ -1,1 +1,1 @@
-[{"name": "Click Node 1", "type": "Click", "position": {"x": -395.25, "y": -142.25}, "text": "100, 100"}]
+[{"name": "Click Node 1", "type": "Click", "position": {"x": -158.25, "y": -222.25}, "text": "100, 100"}, {"name": "Scroll Node 2", "type": "Scroll", "position": {"x": 105.75, "y": -96.25}, "text": "200 ,200"}, {"name": "Command Node 3", "type": "Command", "position": {"x": 213.75, "y": -269.25}, "text": "dkssud"}]

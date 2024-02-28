@@ -48,6 +48,30 @@ class Node(QGraphicsItemGroup):
 
             self.addToGroup(self.proxyWidget)  # QLineEdit이 포함된 proxyWidget을 그룹에 추가합니다.
 
+        if self.nodeType == "Scroll":
+            self.lineEdit = QLineEdit()
+            self.lineEdit.setPlaceholderText("Enter coordinates for Scroll (x, y)")
+            self.proxyWidget = QGraphicsProxyWidget(self)
+            self.proxyWidget.setWidget(self.lineEdit)
+            self.proxyWidget.setPos(0, nodeHeight)
+            
+            # QLineEdit의 returnPressed 시그널을 connect 합니다.
+            self.lineEdit.returnPressed.connect(self.onReturnPressed)
+
+            self.addToGroup(self.proxyWidget)  # QLineEdit이 포함된 proxyWidget을 그룹에 추가합니다.
+
+        if self.nodeType == "Command":
+            self.lineEdit = QLineEdit()
+            self.lineEdit.setPlaceholderText("Enter Command")
+            self.proxyWidget = QGraphicsProxyWidget(self)
+            self.proxyWidget.setWidget(self.lineEdit)
+            self.proxyWidget.setPos(0, nodeHeight)
+            
+            # QLineEdit의 returnPressed 시그널을 connect 합니다.
+            self.lineEdit.returnPressed.connect(self.onReturnPressed)
+
+            self.addToGroup(self.proxyWidget)  # QLineEdit이 포함된 proxyWidget을 그룹에 추가합니다.
+
         rect = QGraphicsRectItem(0, 0, nodeWidth, nodeHeight)  # 150x50 크기의 직사각형 아이템을 생성
         rect.setBrush(QBrush(nodeColor)) # 노드 블록 색상
         rect.setPen(QPen(borderColor)) # 노드 블록 경계선 색상
@@ -64,17 +88,14 @@ class Node(QGraphicsItemGroup):
         self.addToGroup(rect)  # 직사각형 아이템을 이 그룹에 추가합니다.
         self.addToGroup(text)  # 텍스트 아이템을 이 그룹에 추가합니다.
 
-    def Click(self, x, y):
-            # 여기에서 Click 이벤트를 처리합니다.
-            print(f"Click at ({x}, {y})")
-
     def onReturnPressed(self):
         text = self.lineEdit.text()
         try:
             x, y = map(int, text.split(','))
             if self.callback:  # 콜백이 설정되어 있으면 호출합니다.
                 self.callback(x, y)
-                print("CallBack Def")
+                print("Set CallBack Def")
+                
         except ValueError as e:
             print(f"Invalid input {text}: {e}")
 
