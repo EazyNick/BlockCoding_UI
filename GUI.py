@@ -7,9 +7,9 @@ import os
 
 from SaveAction.SaveJson import save_json
 from Execute_Def.Click import Click
-from CustomScene import CustomScene
+from Override_Custom.CustomScene import CustomScene
 from define import *
-from custom_graphics_view import CustomGraphicsView
+from Override_Custom.custom_graphics_view import CustomGraphicsView
 from node import Node
 
 class MainWindow(QMainWindow):
