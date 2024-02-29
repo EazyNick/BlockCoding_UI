@@ -5,8 +5,11 @@ from PyQt5.QtCore import Qt
 import json
 import os
 
+from Logger.Logger import *
 from SaveAction.SaveJson import save_json
 from Execute_Def.Click import Click
+from Execute_Def.Scroll import Scroll
+#from Execute_Def.Command import Command
 from Override_Custom.CustomScene import CustomScene
 from define import *
 from Override_Custom.custom_graphics_view import CustomGraphicsView
@@ -115,7 +118,7 @@ class MainWindow(QMainWindow):
         self.scene.addItem(node)
         node.setPos(viewport_center.x() - node.boundingRect().width() / 2,
                     viewport_center.y() - node.boundingRect().height() / 2)
-        print("Button 2 clicked")
+        LOG.info("Button 2 clicked")
 
     def AddCommandNode(self):
 
@@ -132,7 +135,7 @@ class MainWindow(QMainWindow):
                     viewport_center.y() - node.boundingRect().height() / 2)
         
         # 버튼 3 클릭 이벤트 핸들러
-        print("Button 3 clicked")
+        LOG.info("Button 3 clicked")
 
     def rearrangeNodes(self):
         # 노드를 X 좌표에 따라 정렬하고 재배치
@@ -144,38 +147,75 @@ class MainWindow(QMainWindow):
             node.setPos(x_offset, 100)  # Y 좌표는 예시로 100으로 설정
             x_offset += 160  # 노드 간격 설정
 
-    def handleCoordinates(self, x, y, delay):
-        # Node로부터 전달받은 x, y 좌표를 저장합니다.
-        self.x = x
-        self.y = y
-        self.delay = delay
-        print(f"Received coordinates: ({self.x}, {self.y}, delay: {delay})")
+    def handleCoordinates(self, x=None, y=None, delay=None):
+        try:
+            # 입력 값 검증
+            if None in [x, y, delay]:
+                x = -1
+                y = -1
+                delay = -1
+                raise ValueError("x, y, and delay must not be None.")
+            
+            # 입력 값이 숫자인지 확인
+            x = float(x)
+            y = float(y)
+            delay = float(delay)
+
+            # Node로부터 전달받은 x, y 좌표와 delay를 저장합니다.
+            self.x = x
+            self.y = y
+            self.delay = delay
+            LOG.info(f"Received coordinates: ({self.x}, {self.y}, delay: {self.delay})")
+
+        except ValueError as e:
+            # 예외 메시지를 사용자에게 표시
+            LOG.info(f"Error: {e}")
+            # 여기에서 추가적인 오류 처리를 할 수 있습니다.
+            # 예를 들어, 기본값 설정, 사용자에게 재입력 요청 등
+
+        LOG.info(f"Received coordinates: ({self.x}, {self.y}, delay: {delay})")
 
     def executeNodes(self):
         self.running = True
-        x = self.x
-        y = self.y
-        delay = self.delay
+        try:
+            # 'delay' 속성이 존재하는지 시도합니다.
+            x = self.x
+            y = self.y
+            delay = self.delay
+            LOG.info(self.delay)
 
-        # 가장 좌측에 있는 것부터 실행
-        for node in sorted(self.nodes, key=lambda item: item.x):
-            print(node)
-            if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
-                break
-            else:
-                if node.nodeType == "Click":
-                    self.handleCoordinates(x, y, delay)
-                    Click(x, y)
-                    print(f"Running nodes with coordinates: ({x}, {y}, delay: {delay})")
-                    print(f'Executing {node.nodeType} node: {node.name}')
+        except:
+            # 'delay' 속성이 없을 경우 실행됩니다.
+            print("Error: 'x' or 'y' or 'delay' attribute not found. Using default delay value.")
+            # 기본 delay 값을 사용하거나, 다른 처리를 할 수 있습니다.
+            x = -1
+            y = -1
+            delay = -1 
+            # 여기에서 default_delay를 사용한 처리를 계속할 수 있습니다.
 
-                if node.nodeType == "Scroll":
-                    print(f"Scroll Test")
-                    pass
+        if -1 in [x, y, delay]:
+            LOG.info("x, y, delay 값 설정 안됨")
+        else:
+            # 가장 좌측에 있는 것부터 실행
+            for node in sorted(self.nodes, key=lambda item: item.x):
+                LOG.info(node)
+                if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
+                    break
+                else:
+                    if node.nodeType == "Click":
+                        self.handleCoordinates(x, y, delay)
+                        Click(x, y, delay)
+                        LOG.info(f"Running nodes with coordinates: ({x}, {y}, delay: {delay})")
+                        LOG.info(f'Executing {node.nodeType} node: {node.name}')
 
-                if node.nodeType == "Command":
-                    print(f"Commnad Test")
-                    pass
+                    if node.nodeType == "Scroll":
+                        Scroll(x, y, delay)
+                        LOG.info(f"Scroll Test")
+                        pass
+
+                    if node.nodeType == "Command":
+                        LOG.info(f"Commnad Test")
+                        pass
                 
         self.running = False
 
@@ -221,7 +261,7 @@ class MainWindow(QMainWindow):
                         node.lineEdit.setText(node_data.get('text', ""))
 
         except FileNotFoundError:
-            print("No saved state found.")
+            LOG.info("No saved state found.")
 
     def confirmLoadNodes(self):
         if self.nodes:  # 이미 노드가 하나 이상 있는 경우
@@ -232,7 +272,7 @@ class MainWindow(QMainWindow):
             if reply == QMessageBox.Yes:
                 self.loadNodes()  # 노드 불러오기
             else:
-                print("불러오기 취소됨")  # 콘솔에 메시지 출력
+                LOG.info("불러오기 취소됨")  # 콘솔에 메시지 출력
         else:
             self.loadNodes()  # 노드가 없으므로 바로 불러오기
 

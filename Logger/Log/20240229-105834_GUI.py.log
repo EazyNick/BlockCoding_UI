@@ -1,0 +1,8 @@
+[2024-02-29 10:58:34.551][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-02-29 10:58:34.552][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-02-29 10:58:34.553][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-02-29 10:58:37.920][I][GUI.py(AddCommandNode):138] Button 3 clicked
+[2024-02-29 10:58:38.563][I][GUI.py(AddScrollNode):121] Button 2 clicked
+[2024-02-29 10:59:07.290][I][GUI.py(executeNodes):197] x, y, delay 값 설정 안됨
+[2024-02-29 10:59:10.372][I][GUI.py(executeNodes):197] x, y, delay 값 설정 안됨
+[2024-02-29 10:59:32.927][I][GUI.py(executeNodes):197] x, y, delay 값 설정 안됨
