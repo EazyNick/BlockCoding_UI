@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QGraphicsItemGroup, QGraphicsRectItem, QGraphicsTex
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QPen
-
+from Logger.Logger import *
 class Node(QGraphicsItemGroup):
     """
     Node 클래스
@@ -22,6 +22,7 @@ class Node(QGraphicsItemGroup):
         self.nodeType = nodeType  # 노드 유형 추가
         self.x = x
         self.y = y
+        self.delay = None  # 인스턴스 변수로 delay 관리
         self.callback = callback
         self.initUI()  # UI를 초기화하는 사용자 정의 메서드 호출
 
@@ -92,12 +93,39 @@ class Node(QGraphicsItemGroup):
         text = self.lineEdit.text()
         try:
             x, y, delay = map(int, text.split(','))
-            if self.callback:  # 콜백이 설정되어 있으면 호출합니다.
-                self.callback(x, y, delay)
-                print("Set CallBack Def")
+            self.handleCoordinates(x, y, delay)
+            print("Set CallBack Def")
                 
         except ValueError as e:
             print(f"Invalid input {text}: {e}")
+
+    def handleCoordinates(self, x=None, y=None, delay=None):
+        try:
+            # 입력 값 검증
+            if None in [x, y, delay]:
+                x = -1
+                y = -1
+                delay = -1
+                raise ValueError("x, y, and delay must not be None.")
+            
+            # 입력 값이 숫자인지 확인
+            x = float(x)
+            y = float(y)
+            delay = float(delay)
+
+            # Node로부터 전달받은 x, y 좌표와 delay를 저장합니다.
+            self.x = x
+            self.y = y
+            self.delay = delay
+            LOG.info(f"Received coordinates: ({self.x}, {self.y}, delay: {self.delay})")
+
+        except ValueError as e:
+            # 예외 메시지를 사용자에게 표시
+            LOG.info(f"Error: {e}")
+            # 여기에서 추가적인 오류 처리를 할 수 있습니다.
+            # 예를 들어, 기본값 설정, 사용자에게 재입력 요청 등
+
+        LOG.info(f"Received coordinates: ({self.x}, {self.y}, delay: {delay})")
 
     # def onReturnPressed(self):
     #     # 사용자 입력을 가져옵니다.

@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
     def AddClickNode(self):
         # 버튼 1 클릭 이벤트 핸들러
         node_name = f'Click Node {len(self.nodes) + 1}'
-        node = Node(self.scene, node_name, "Click", 100, 100, self.handleCoordinates)
+        node = Node(self.scene, node_name, "Click", 100, 100)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
         
     def AddScrollNode(self):
         node_name = f'Scroll Node {len(self.nodes) + 1}'
-        node = Node(self.scene, node_name, "Scroll", 100, 100, self.handleCoordinates)
+        node = Node(self.scene, node_name, "Scroll", 100, 100)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -147,42 +147,16 @@ class MainWindow(QMainWindow):
             node.setPos(x_offset, 100)  # Y 좌표는 예시로 100으로 설정
             x_offset += 160  # 노드 간격 설정
 
-    def handleCoordinates(self, x=None, y=None, delay=None):
-        try:
-            # 입력 값 검증
-            if None in [x, y, delay]:
-                x = -1
-                y = -1
-                delay = -1
-                raise ValueError("x, y, and delay must not be None.")
-            
-            # 입력 값이 숫자인지 확인
-            x = float(x)
-            y = float(y)
-            delay = float(delay)
-
-            # Node로부터 전달받은 x, y 좌표와 delay를 저장합니다.
-            self.x = x
-            self.y = y
-            self.delay = delay
-            LOG.info(f"Received coordinates: ({self.x}, {self.y}, delay: {self.delay})")
-
-        except ValueError as e:
-            # 예외 메시지를 사용자에게 표시
-            LOG.info(f"Error: {e}")
-            # 여기에서 추가적인 오류 처리를 할 수 있습니다.
-            # 예를 들어, 기본값 설정, 사용자에게 재입력 요청 등
-
-        LOG.info(f"Received coordinates: ({self.x}, {self.y}, delay: {delay})")
-
     def executeNodes(self):
         self.running = True
+        print("self.nodes:", self.nodes)
         try:
+            for node in self.nodes:
             # 'delay' 속성이 존재하는지 시도합니다.
-            x = self.x
-            y = self.y
-            delay = self.delay
-            LOG.info(self.delay)
+                x = node.x
+                y = node.y
+                delay = node.delay
+                LOG.info(node.delay)
 
         except:
             # 'delay' 속성이 없을 경우 실행됩니다.
@@ -203,7 +177,7 @@ class MainWindow(QMainWindow):
                     break
                 else:
                     if node.nodeType == "Click":
-                        self.handleCoordinates(x, y, delay)
+                        (x, y, delay)
                         Click(x, y, delay)
                         LOG.info(f"Running nodes with coordinates: ({x}, {y}, delay: {delay})")
                         LOG.info(f'Executing {node.nodeType} node: {node.name}')
