@@ -1,0 +1,11 @@
+[2024-02-29 10:58:12.859][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-02-29 10:58:12.859][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-02-29 10:58:12.859][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-02-29 10:58:20.773][I][GUI.py(handleCoordinates):168] Received coordinates: (100.0, 100.0, delay: 1.0)
+[2024-02-29 10:58:20.773][I][GUI.py(handleCoordinates):176] Received coordinates: (100.0, 100.0, delay: 1.0)
+[2024-02-29 10:58:21.852][I][GUI.py(executeNodes):185] 1.0
+[2024-02-29 10:58:21.853][I][GUI.py(executeNodes):201] <node.Node object at 0x000001DA8E5D00D0>
+[2024-02-29 10:58:21.854][I][GUI.py(handleCoordinates):168] Received coordinates: (100.0, 100.0, delay: 1.0)
+[2024-02-29 10:58:21.865][I][GUI.py(handleCoordinates):176] Received coordinates: (100.0, 100.0, delay: 1.0)
+[2024-02-29 10:58:23.081][I][GUI.py(executeNodes):208] Running nodes with coordinates: (100.0, 100.0, delay: 1.0)
+[2024-02-29 10:58:23.081][I][GUI.py(executeNodes):209] Executing Click node: Click Node 1

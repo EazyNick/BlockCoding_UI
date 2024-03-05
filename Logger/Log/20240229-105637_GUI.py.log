@@ -1,0 +1,12 @@
+[2024-02-29 10:56:37.664][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-02-29 10:56:37.666][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-02-29 10:56:37.667][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-02-29 10:56:42.924][I][GUI.py(executeNodes):198] x, y, delay 값 설정 안됨
+[2024-02-29 10:56:45.998][I][GUI.py(handleCoordinates):168] Received coordinates: (100.0, 100.0, delay: 100.0)
+[2024-02-29 10:56:45.998][I][GUI.py(handleCoordinates):176] Received coordinates: (100.0, 100.0, delay: 100.0)
+[2024-02-29 10:56:47.087][I][GUI.py(executeNodes):184] 100.0
+[2024-02-29 10:56:47.088][I][GUI.py(executeNodes):186] 100.0
+[2024-02-29 10:56:47.089][I][GUI.py(executeNodes):198] x, y, delay 값 설정 안됨
+[2024-02-29 10:56:48.914][I][GUI.py(executeNodes):184] 100.0
+[2024-02-29 10:56:48.915][I][GUI.py(executeNodes):186] 100.0
+[2024-02-29 10:56:48.916][I][GUI.py(executeNodes):198] x, y, delay 값 설정 안됨

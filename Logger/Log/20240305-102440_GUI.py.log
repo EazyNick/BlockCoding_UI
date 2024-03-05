@@ -1,0 +1,27 @@
+[2024-03-05 10:24:40.031][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 10:24:40.032][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 10:24:40.032][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 10:24:44.075][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:24:44.075][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:24:45.861][I][GUI.py(executeNodes):184] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:24:49.068][I][GUI.py(executeNodes):187] Executing Click node: Click Node 1
+[2024-03-05 10:24:51.923][I][node.py(Node_handleCoordinates):120] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:24:51.942][I][node.py(Node_handleCoordinates):128] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:24:53.806][I][GUI.py(executeNodes):184] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:24:57.021][I][GUI.py(executeNodes):187] Executing Click node: Click Node 1
+[2024-03-05 10:24:57.022][I][GUI.py(executeNodes):184] Node Click Node 2: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 10:25:00.226][I][GUI.py(executeNodes):187] Executing Click node: Click Node 2
+[2024-03-05 10:25:03.172][I][node.py(Node_handleCoordinates):120] Received coordinates: (300.0, 300.0, delay: 3.0)
+[2024-03-05 10:25:03.172][I][node.py(Node_handleCoordinates):128] Received coordinates: (300.0, 300.0, delay: 3.0)
+[2024-03-05 10:25:04.926][I][GUI.py(executeNodes):184] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:25:08.138][I][GUI.py(executeNodes):187] Executing Click node: Click Node 1
+[2024-03-05 10:25:08.139][I][GUI.py(executeNodes):184] Node Click Node 2: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 10:25:11.353][I][GUI.py(executeNodes):187] Executing Click node: Click Node 2
+[2024-03-05 10:25:11.354][I][GUI.py(executeNodes):184] Node Click Node 3: delay = 3.0, x = 300.0, y = 300.0
+[2024-03-05 10:25:14.571][I][GUI.py(executeNodes):187] Executing Click node: Click Node 3
+[2024-03-05 10:25:19.144][I][GUI.py(executeNodes):184] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:25:22.355][I][GUI.py(executeNodes):187] Executing Click node: Click Node 1
+[2024-03-05 10:25:22.355][I][GUI.py(executeNodes):184] Node Click Node 2: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 10:25:25.557][I][GUI.py(executeNodes):187] Executing Click node: Click Node 2
+[2024-03-05 10:25:25.558][I][GUI.py(executeNodes):184] Node Click Node 3: delay = 3.0, x = 300.0, y = 300.0
+[2024-03-05 10:25:28.774][I][GUI.py(executeNodes):187] Executing Click node: Click Node 3

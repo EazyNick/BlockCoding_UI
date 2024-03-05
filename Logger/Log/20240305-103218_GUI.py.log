@@ -1,0 +1,11 @@
+[2024-03-05 10:32:18.612][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 10:32:18.612][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 10:32:18.612][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 10:32:23.938][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:32:23.938][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:32:27.370][I][node.py(Node_handleCoordinates):120] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:32:27.370][I][node.py(Node_handleCoordinates):128] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:32:29.739][D][GUI.py(executeNodes):182] self.nodes: [<node.Node object at 0x000002307F80C160>, <node.Node object at 0x000002307F80C4C0>]
+[2024-03-05 10:32:29.739][I][GUI.py(executeNodes):222] 실행 중단됨
+[2024-03-05 10:32:33.499][D][GUI.py(executeNodes):182] self.nodes: [<node.Node object at 0x000002307F80C160>, <node.Node object at 0x000002307F80C4C0>]
+[2024-03-05 10:32:33.500][I][GUI.py(executeNodes):222] 실행 중단됨

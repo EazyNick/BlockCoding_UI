@@ -1,0 +1,5 @@
+[2024-03-05 10:20:34.263][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 10:20:34.265][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 10:20:34.265][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 10:20:39.008][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 1.0)
+[2024-03-05 10:20:39.008][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 1.0)

@@ -1,0 +1,15 @@
+[2024-03-05 10:38:44.387][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 10:38:44.387][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 10:38:44.387][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 10:38:49.770][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:38:49.770][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:38:54.975][I][node.py(Node_handleCoordinates):120] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:38:54.975][I][node.py(Node_handleCoordinates):128] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:38:56.173][D][GUI.py(executeNodes):182] self.nodes: [<node.Node object at 0x000001F57EF2C160>, <node.Node object at 0x000001F57EF2C4C0>]
+[2024-03-05 10:38:56.174][I][GUI.py(executeNodes):186] 노드 실행중
+[2024-03-05 10:38:56.174][D][GUI.py(executeNodes):189] sorted_nodes: [<node.Node object at 0x000001F57EF2C160>, <node.Node object at 0x000001F57EF2C4C0>]
+[2024-03-05 10:38:56.174][I][GUI.py(executeNodes):201] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:38:59.393][I][GUI.py(executeNodes):204] Executing Click node: Click Node 1
+[2024-03-05 10:38:59.393][I][GUI.py(executeNodes):201] Node Click Node 2: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 10:39:02.611][I][GUI.py(executeNodes):204] Executing Click node: Click Node 2
+[2024-03-05 10:39:02.612][D][GUI.py(executeNodes):225] 노드 실행 완료

@@ -1,0 +1,19 @@
+[2024-03-05 09:52:11.251][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 09:52:11.252][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 09:52:11.253][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 09:52:15.794][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 09:52:15.794][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 09:52:20.954][I][GUI.py(executeNodes):176] 3.0
+[2024-03-05 09:52:20.954][I][GUI.py(executeNodes):192] <node.Node object at 0x000001729C5CC280>
+[2024-03-05 09:52:24.177][I][GUI.py(executeNodes):199] Running nodes with coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 09:52:24.188][I][GUI.py(executeNodes):200] Executing Click node: Click Node 1
+[2024-03-05 09:52:30.408][I][node.py(Node_handleCoordinates):120] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 09:52:30.408][I][node.py(Node_handleCoordinates):128] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 09:52:31.870][I][GUI.py(executeNodes):176] 3.0
+[2024-03-05 09:52:31.870][I][GUI.py(executeNodes):176] 3.0
+[2024-03-05 09:52:31.871][I][GUI.py(executeNodes):192] <node.Node object at 0x000001729C5CC280>
+[2024-03-05 09:52:35.078][I][GUI.py(executeNodes):199] Running nodes with coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 09:52:35.079][I][GUI.py(executeNodes):200] Executing Click node: Click Node 1
+[2024-03-05 09:52:35.080][I][GUI.py(executeNodes):192] <node.Node object at 0x000001729C5CC5E0>
+[2024-03-05 09:52:38.283][I][GUI.py(executeNodes):199] Running nodes with coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 09:52:38.284][I][GUI.py(executeNodes):200] Executing Click node: Click Node 2
