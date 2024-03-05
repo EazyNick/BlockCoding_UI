@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QGraphicsItemGroup, QGraphicsRectItem, QGraphicsTextItem, QGraphicsItem, 
                              QLineEdit, QGraphicsProxyWidget, QApplication, QGraphicsScene, QMessageBox)
 
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QPen
 from Logger.Logger import *
 class Node(QGraphicsItemGroup):

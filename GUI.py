@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QVBoxLayout, QSplitter, QMessageBox
 from PyQt5.QtGui import QBrush, QColor
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtCore import Qt
 import json
 import os
 import threading
@@ -76,11 +76,13 @@ class MainWindow(QMainWindow):
         left_layout.addWidget(button1)
 
         # 추가 버튼 2
-        button2 = createButton('Add Scroll', self.AddScrollNode)
+        button2 = createButton('Add Scroll(제작중)', self.AddScrollNode)
+        button2.setEnabled(False)  # 버튼 비활성화
         left_layout.addWidget(button2)
-
+    
         # 추가 버튼 3
-        button3 = createButton('Add Command', self.AddCommandNode)
+        button3 = createButton('Add Command(제작중)', self.AddCommandNode)
+        button3.setEnabled(False)  # 버튼 비활성화
         left_layout.addWidget(button3)
 
         # 레이아웃의 나머지 공간을 채우기 위해 스트레치 요소 추가
@@ -262,15 +264,36 @@ class MainWindow(QMainWindow):
             with open(filepath, 'r') as file:
                 nodes_data = json.load(file)
                 for node_data in nodes_data:
+                    # Node 인스턴스 생성
                     node = Node(self.scene, node_data['name'], node_data['type'], 
                                 node_data['position']['x'], node_data['position']['y'])
                     self.nodes.append(node)
                     self.scene.addItem(node)
                     node.setPos(node_data['position']['x'], node_data['position']['y'])
 
-                    # 저장된 텍스트 값을 QLineEdit에 다시 설정합니다.
-                    if hasattr(node, 'lineEdit'):
-                        node.lineEdit.setText(node_data.get('text', ""))
+                    # "text" 값을 파싱하여 x, y, delay로 분리
+                    text = node_data.get('text', "")
+                    if text:
+                        try:
+                            x_str, y_str, delay_str = text.split(',')
+                            x_val = float(x_str.strip())
+                            y_val = float(y_str.strip())
+                            delay_val = float(delay_str.strip())
+
+                            # Node 인스턴스에 파싱된 값을 설정
+                            # 이 부분은 Node 클래스의 구현에 따라 달라질 수 있습니다.
+                            # 예시에서는 Node 클래스가 이러한 속성을 처리할 수 있다고 가정합니다.
+                            node.x = x_val
+                            node.y = y_val
+                            node.delay = delay_val
+
+                            #저장된 텍스트 값을 QLineEdit에 다시 설정합니다.
+                            if hasattr(node, 'lineEdit'):
+                                node.lineEdit.setText(node_data.get('text', ""))
+
+                        except ValueError:
+                            # "text" 값 파싱 중 오류 발생 시 처리
+                            LOG.error("Error parsing node text values: {}".format(text))
 
         except FileNotFoundError:
             LOG.info("No saved state found.")

@@ -1,0 +1,7 @@
+[2024-03-05 11:25:46.811][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 11:25:46.811][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 11:25:46.811][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 11:25:47.100][D][GUI.py(executeNodes):187] self.nodes: []
+[2024-03-05 11:25:47.101][I][GUI.py(executeNodes):191] 노드 실행중
+[2024-03-05 11:25:47.101][D][GUI.py(executeNodes):194] sorted_nodes: []
+[2024-03-05 11:25:47.101][D][GUI.py(executeNodes):230] 노드 실행 완료
