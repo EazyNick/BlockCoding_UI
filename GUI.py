@@ -1,10 +1,12 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QWidget, QApplication, QVBoxLayout, QSplitter, QMessageBox
 from PyQt5.QtGui import QBrush, QColor
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QThread, pyqtSignal
 import json
 import os
+import threading
 
+from Thread.Worker import Worker
 from Logger.Logger import *
 from SaveAction.SaveJson import save_json
 from Execute_Def.Click import Click
@@ -21,7 +23,10 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Node-based UI in PyQt')
         self.setGeometry(100, 100, 1000, 600)
         self.nodes = []  # 생성된 노드들을 저장할 리스트
+        self.x = []  # x 좌표를 저장할 리스트
+        self.y = []  # y 좌표를 저장할 리스트
         self.running = False  # 실행 중인지 추적하는 플래그
+        self.worker = Worker(self.executeNodes())  # 백그라운드 작업을 위한 Worker 인스턴스
         self.initUI()
 
     def initUI(self):
@@ -45,11 +50,13 @@ class MainWindow(QMainWindow):
         #button_style = "QPushButton { margin: 0; padding: 2px; }"
 
         # "실행" 버튼 추가
-        execute_button = createButton('실행', self.executeNodes)
+        execute_button = QPushButton('실행', self)
+        execute_button.clicked.connect(self.startWork)
         left_layout.addWidget(execute_button)
 
         # "중단" 버튼 추가
-        execute_button2 = createButton('중단', self.stopExecution)
+        execute_button2 = QPushButton('중단', self)
+        execute_button2.clicked.connect(self.stopWork)
         left_layout.addWidget(execute_button2)
 
         Distance(left_layout)
@@ -91,10 +98,36 @@ class MainWindow(QMainWindow):
         self.view.setFixedSize(800, 600)
         main_splitter.addWidget(self.view)
 
+    def startWork(self):
+        if not self.worker.isRunning():  # 작업이 이미 실행 중이지 않은 경우에만 시작
+            self.worker = Worker(self.executeNodes)  # Worker 인스턴스 생성
+            self.worker.finished.connect(self.stopWork)  # 작업 완료 시 처리할 슬롯 연결
+            self.worker.start()  # Worker 스레드 시작
+
+    def stopWork(self):
+        if self.worker.isRunning():
+            self.stopExecution()
+            self.worker.terminate()  # Worker 스레드 종료 (주의: terminate는 강제 종료이므로 리소스 정리가 필요할 수 있음)
+
+    def handleCoordinates(self, node_index, x = [], y = []):
+        # 리스트의 길이를 검사하여 새 노드 인덱스가 리스트 범위 내에 있는지 확인합니다.
+        # node_index는 노드의 인덱스를 나타내며, 0부터 시작합니다.
+        if node_index >= len(self.x):
+            # 리스트를 확장합니다.
+            self.x.append(x)
+            self.y.append(y)
+        else:
+            # 이미 존재하는 인덱스라면 값을 업데이트합니다.
+            self.x[node_index] = x
+            self.y[node_index] = y
+        
+        print(f"Received coordinates for node {node_index + 1}: ({self.x[node_index]}, {self.y[node_index]})")
+
     def AddClickNode(self):
         # 버튼 1 클릭 이벤트 핸들러
+        node_index = len(self.nodes)  # 현재 노드 인덱스
         node_name = f'Click Node {len(self.nodes) + 1}'
-        node = Node(self.scene, node_name, "Click", 100, 100)
+        node = Node(self.scene, node_name, "Click", 100, 100, self.handleCoordinates(node_index))
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -123,7 +156,7 @@ class MainWindow(QMainWindow):
     def AddCommandNode(self):
 
         node_name = f'Command Node {len(self.nodes) + 1}'
-        node = Node(self.scene, node_name, "Command", 100, 100)
+        node = Node(self.scene, node_name, "Command", 100, 100, self.handleCoordinates)
         self.nodes.append(node)
 
         # 뷰포트의 중앙 좌표를 계산
@@ -149,15 +182,39 @@ class MainWindow(QMainWindow):
 
     def executeNodes(self):
         self.running = True
-        print("self.nodes:", self.nodes)
+        LOG.debug(f"self.nodes: {self.nodes}")
+        # self.running이 True인 동안 작업을 계속 실행
+
         try:
-            for node in self.nodes:
-            # 'delay' 속성이 존재하는지 시도합니다.
+            LOG.info(f"노드 실행중")
+        # 노드를 x 좌표에 따라 정렬합니다.
+            sorted_nodes = sorted(self.nodes, key=lambda item: item.x)
+            LOG.debug(f"sorted_nodes: {sorted_nodes}")
+            for node in sorted_nodes:
                 x = node.x
                 y = node.y
                 delay = node.delay
-                LOG.info(node.delay)
 
+                # x, y, delay 값이 설정되지 않은 경우 로그를 남깁니다.
+                if -1 in [x, y, delay]: 
+                    LOG.info(f"{node.name} 노드의 x, y, delay 값이 설정되지 않았습니다.")
+                    continue  # 다음 노드로 넘어갑니다.
+
+                # 노드 타입에 따라 적절한 작업을 수행합니다.
+                LOG.info(f"Node {node.name}: delay = {delay}, x = {x}, y = {y}")
+                if node.nodeType == "Click":
+                    Click(x, y, delay)
+                    LOG.info(f'Executing {node.nodeType} node: {node.name}')
+
+                elif node.nodeType == "Scroll":
+                    Scroll(x, y, delay)
+                    LOG.info(f"Scroll Test for {node.name}")
+
+                elif node.nodeType == "Command":
+                    # Command(x, y, delay)  # Command에 해당하는 작업을 수행해야 합니다.
+                    LOG.info(f"Command Test for {node.name}")
+            threading.sleep(1)  # 실제 구현에서는 sleep을 사용하지 않습니다.
+            
         except:
             # 'delay' 속성이 없을 경우 실행됩니다.
             print("Error: 'x' or 'y' or 'delay' attribute not found. Using default delay value.")
@@ -165,37 +222,18 @@ class MainWindow(QMainWindow):
             x = -1
             y = -1
             delay = -1 
-            # 여기에서 default_delay를 사용한 처리를 계속할 수 있습니다.
-
-        if -1 in [x, y, delay]:
-            LOG.info("x, y, delay 값 설정 안됨")
-        else:
-            # 가장 좌측에 있는 것부터 실행
-            for node in sorted(self.nodes, key=lambda item: item.x):
-                LOG.info(node)
-                if not self.running:  # 만약 실행을 중단해야 한다면 루프 탈출
-                    break
-                else:
-                    if node.nodeType == "Click":
-                        (x, y, delay)
-                        Click(x, y, delay)
-                        LOG.info(f"Running nodes with coordinates: ({x}, {y}, delay: {delay})")
-                        LOG.info(f'Executing {node.nodeType} node: {node.name}')
-
-                    if node.nodeType == "Scroll":
-                        Scroll(x, y, delay)
-                        LOG.info(f"Scroll Test")
-                        pass
-
-                    if node.nodeType == "Command":
-                        LOG.info(f"Commnad Test")
-                        pass
-                
+            # 여기에서 default_delay를 사용한 처리를 계속할 수 있습니다.          
         self.running = False
+        self.thread = None
+        LOG.debug("노드 실행 완료")
 
     def stopExecution(self):
-        self.running = False  # 실행 중단
-        # 필요한 경우 초기 상태로 되돌리는 코드 추가
+        # 실행 중단 플래그 설정
+        self.running = False
+        # 스레드가 실행 중이면, 스레드가 종료될 때까지 기다림
+        if self.thread is not None:
+            self.thread.join()
+            self.thread = None
 
     def saveNodes(self):
         nodes_data = []

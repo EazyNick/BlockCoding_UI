@@ -93,13 +93,13 @@ class Node(QGraphicsItemGroup):
         text = self.lineEdit.text()
         try:
             x, y, delay = map(int, text.split(','))
-            self.handleCoordinates(x, y, delay)
+            self.Node_handleCoordinates(x, y, delay)
             print("Set CallBack Def")
                 
         except ValueError as e:
             print(f"Invalid input {text}: {e}")
 
-    def handleCoordinates(self, x=None, y=None, delay=None):
+    def Node_handleCoordinates(self, x=None, y=None, delay=None):
         try:
             # 입력 값 검증
             if None in [x, y, delay]:

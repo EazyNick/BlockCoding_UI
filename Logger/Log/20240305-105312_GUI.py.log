@@ -1,0 +1,21 @@
+[2024-03-05 10:53:12.576][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 10:53:12.577][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 10:53:12.577][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 10:53:16.407][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:53:16.407][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 10:53:17.895][D][GUI.py(executeNodes):191] self.nodes: [<node.Node object at 0x0000013C37FAC280>]
+[2024-03-05 10:53:17.896][I][GUI.py(executeNodes):195] 노드 실행중
+[2024-03-05 10:53:17.896][D][GUI.py(executeNodes):198] sorted_nodes: [<node.Node object at 0x0000013C37FAC280>]
+[2024-03-05 10:53:17.907][I][GUI.py(executeNodes):210] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:53:21.115][I][GUI.py(executeNodes):213] Executing Click node: Click Node 1
+[2024-03-05 10:53:21.115][D][GUI.py(executeNodes):234] 노드 실행 완료
+[2024-03-05 10:53:33.537][I][node.py(Node_handleCoordinates):120] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:53:33.537][I][node.py(Node_handleCoordinates):128] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 10:53:35.275][D][GUI.py(executeNodes):191] self.nodes: [<node.Node object at 0x0000013C37FAC280>, <node.Node object at 0x0000013C37FAC5E0>]
+[2024-03-05 10:53:35.276][I][GUI.py(executeNodes):195] 노드 실행중
+[2024-03-05 10:53:35.276][D][GUI.py(executeNodes):198] sorted_nodes: [<node.Node object at 0x0000013C37FAC280>, <node.Node object at 0x0000013C37FAC5E0>]
+[2024-03-05 10:53:35.277][I][GUI.py(executeNodes):210] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 10:53:38.484][I][GUI.py(executeNodes):213] Executing Click node: Click Node 1
+[2024-03-05 10:53:38.484][I][GUI.py(executeNodes):210] Node Click Node 2: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 10:53:41.700][I][GUI.py(executeNodes):213] Executing Click node: Click Node 2
+[2024-03-05 10:53:41.701][D][GUI.py(executeNodes):234] 노드 실행 완료

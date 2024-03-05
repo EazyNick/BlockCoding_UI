@@ -1,0 +1,3 @@
+[2024-03-05 09:36:35.570][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 09:36:35.570][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 09:36:35.570][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
