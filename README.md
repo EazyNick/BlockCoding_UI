@@ -1,4 +1,4 @@
-![Uploading image.png…]()
+![image](https://github.com/EazyNick/BlockCoding_UI/assets/123717093/19d3494a-9b0d-4c55-807b-8af6d90e40a2)
 
 
 # QtPy Block Coding Interface
