@@ -1,3 +1,5 @@
+![image](https://github.com/EazyNick/BlockCoding_UI/assets/123717093/0968b707-7f94-4c30-a164-18ee9c7cdb3a)
+
 # QtPy Block Coding Interface
 
 ## Introduction
