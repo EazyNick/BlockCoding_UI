@@ -1,0 +1,38 @@
+[2024-03-05 11:41:21.520][D][Logger.py(Init):19] Logger Init function called !!!
+[2024-03-05 11:41:21.521][D][Logger.py(clean_up_logs):91] clean_up_logs
+[2024-03-05 11:41:21.522][D][Logger.py(<module>):100] d:\Python\SkillUp\BlockCoding_UI\Logger\Logger.py
+[2024-03-05 11:41:21.984][D][GUI.py(executeNodes):187] self.nodes: []
+[2024-03-05 11:41:21.985][I][GUI.py(executeNodes):191] 노드 실행중
+[2024-03-05 11:41:21.985][D][GUI.py(executeNodes):194] sorted_nodes: []
+[2024-03-05 11:41:21.985][D][GUI.py(executeNodes):230] 노드 실행 완료
+[2024-03-05 11:41:36.253][D][Worker.py(run):13] 스레드 런
+[2024-03-05 11:41:36.253][D][GUI.py(executeNodes):187] self.nodes: [<node.Node object at 0x00000137208AC3A0>, <node.Node object at 0x00000137208AC700>, <node.Node object at 0x00000137208AC9D0>]
+[2024-03-05 11:41:36.264][I][GUI.py(executeNodes):191] 노드 실행중
+[2024-03-05 11:41:36.264][D][GUI.py(executeNodes):194] sorted_nodes: [<node.Node object at 0x00000137208AC3A0>, <node.Node object at 0x00000137208AC700>, <node.Node object at 0x00000137208AC9D0>]
+[2024-03-05 11:41:36.265][I][GUI.py(executeNodes):206] Node Click Node 1: delay = None, x = 100, y = 100
+[2024-03-05 11:41:36.476][D][GUI.py(executeNodes):230] 노드 실행 완료
+[2024-03-05 11:41:36.476][D][Worker.py(run):15] 스레드 종료
+[2024-03-05 11:41:38.478][I][node.py(Node_handleCoordinates):120] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 11:41:38.479][I][node.py(Node_handleCoordinates):128] Received coordinates: (100.0, 100.0, delay: 3.0)
+[2024-03-05 11:41:39.626][I][node.py(Node_handleCoordinates):120] Received coordinates: (300.0, 300.0, delay: 3.0)
+[2024-03-05 11:41:39.627][I][node.py(Node_handleCoordinates):128] Received coordinates: (300.0, 300.0, delay: 3.0)
+[2024-03-05 11:41:40.482][I][node.py(Node_handleCoordinates):120] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 11:41:40.483][I][node.py(Node_handleCoordinates):128] Received coordinates: (200.0, 200.0, delay: 3.0)
+[2024-03-05 11:41:41.389][D][Worker.py(run):13] 스레드 런
+[2024-03-05 11:41:41.389][D][GUI.py(executeNodes):187] self.nodes: [<node.Node object at 0x00000137208AC3A0>, <node.Node object at 0x00000137208AC700>, <node.Node object at 0x00000137208AC9D0>]
+[2024-03-05 11:41:41.390][I][GUI.py(executeNodes):191] 노드 실행중
+[2024-03-05 11:41:41.390][D][GUI.py(executeNodes):194] sorted_nodes: [<node.Node object at 0x00000137208AC3A0>, <node.Node object at 0x00000137208AC9D0>, <node.Node object at 0x00000137208AC700>]
+[2024-03-05 11:41:41.391][I][GUI.py(executeNodes):206] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 11:41:44.610][I][GUI.py(executeNodes):209] Executing Click node: Click Node 1
+[2024-03-05 11:41:44.610][I][GUI.py(executeNodes):206] Node Click Node 3: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 11:41:47.814][I][GUI.py(executeNodes):209] Executing Click node: Click Node 3
+[2024-03-05 11:41:47.815][I][GUI.py(executeNodes):206] Node Click Node 2: delay = 3.0, x = 300.0, y = 300.0
+[2024-03-05 11:41:53.682][D][Worker.py(run):13] 스레드 런
+[2024-03-05 11:41:53.683][D][GUI.py(executeNodes):187] self.nodes: [<node.Node object at 0x00000137208ACC10>, <node.Node object at 0x00000137208AC550>, <node.Node object at 0x00000137208ACEE0>]
+[2024-03-05 11:41:53.684][I][GUI.py(executeNodes):191] 노드 실행중
+[2024-03-05 11:41:53.684][D][GUI.py(executeNodes):194] sorted_nodes: [<node.Node object at 0x00000137208ACC10>, <node.Node object at 0x00000137208ACEE0>, <node.Node object at 0x00000137208AC550>]
+[2024-03-05 11:41:53.684][I][GUI.py(executeNodes):206] Node Click Node 1: delay = 3.0, x = 100.0, y = 100.0
+[2024-03-05 11:41:56.894][I][GUI.py(executeNodes):209] Executing Click node: Click Node 1
+[2024-03-05 11:41:56.894][I][GUI.py(executeNodes):206] Node Click Node 3: delay = 3.0, x = 200.0, y = 200.0
+[2024-03-05 11:42:00.098][I][GUI.py(executeNodes):209] Executing Click node: Click Node 3
+[2024-03-05 11:42:00.099][I][GUI.py(executeNodes):206] Node Click Node 2: delay = 3.0, x = 300.0, y = 300.0
